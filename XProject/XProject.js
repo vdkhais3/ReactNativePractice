@@ -1,5 +1,5 @@
-import React, { 
-	Component 
+import React, {
+	Component
 } from 'react';
 
 import {
@@ -13,7 +13,7 @@ import {
 // import Greeting from './Greeting';
 // import Blink from './Blink';
 // import Style from './Style';
-// import { 
+// import {
 //     FixedDimensionsBasics,
 //     FlexDimensionsBasics,
 //     FlexDirectionBasics,
@@ -32,8 +32,10 @@ import {
 
 //import SimpleNavigation from './SimpleNavigation';
 
+
 var FirstScene = require('./app/First');
 var SecondScene = require('./app/Second');
+var AddScene = require('./app/Add');
 
 export default class XProject extends Component {
   	render() {
@@ -49,7 +51,7 @@ export default class XProject extends Component {
 		    		this._navigatorRenderScene
 		    	}
 
-		    	configureScene = {(route, routeStack) => 
+		    	configureScene = {(route, routeStack) =>
 		    		//Navigator.SceneConfigs.FloatFromBottom
 		    		Navigator.SceneConfigs.FadeAndroid
 		    	}
@@ -67,6 +69,10 @@ export default class XProject extends Component {
 			case 'SecondScene':
 				return (
 					<SecondScene navigator={navigator}/>
+				)
+			case 'AddScene':
+				return (
+					<AddScene navigator={navigator}/>
 				)
 		}
 	}

@@ -5,8 +5,11 @@ import React, {
 import {
 	View,
 	Text,
-	TouchableHighlight
+	TouchableHighlight,
+	StyleSheet
 } from 'react-native';
+
+var ActionBar = require('./ActionBar');
 
 class FirstScene extends Component {
 
@@ -16,15 +19,28 @@ class FirstScene extends Component {
 		});
 	}
 
+	_rightPress() {
+		alert("Home press");
+	}
+
 	render() {
 		return (
 			<View>
-				<Text>
-					This is first scene
-				</Text>
-				<TouchableHighlight onPress={this._goToSecondScene.bind(this)}>
-					<Text>Go to second scene</Text>
-				</TouchableHighlight>
+				<ActionBar
+					title='First scene'
+					rightTitle='Home'
+					rightPress={this._rightPress}/>
+
+				<View>
+					<Text>
+						This is first scene
+					</Text>
+					<TouchableHighlight onPress={this._goToSecondScene.bind(this)}>
+						<Text>
+							Go to second scene
+						</Text>
+					</TouchableHighlight>
+				</View>
 			</View>
 		)
 	}
