@@ -1,4 +1,12 @@
-import React, { Component } from 'react';
+import React, { 
+	Component 
+} from 'react';
+
+import {
+	View,
+	Text,
+	Navigator
+} from 'react-native';
 
 // import HelloWorld from './HelloWorld';
 // import Bananas from './Bananas';
@@ -22,12 +30,44 @@ import React, { Component } from 'react';
 //     ListViewBasics
 // } from './ListView';
 
-import SimpleNavigation from './SimpleNavigation';
+//import SimpleNavigation from './SimpleNavigation';
+
+var FirstScene = require('./app/First');
+var SecondScene = require('./app/Second');
 
 export default class XProject extends Component {
   	render() {
 	  	return (
-		    <SimpleNavigation/>
+		    <Navigator
+		    	initialRoute = {
+		    		{
+		    			id: 'FirstScene'
+		    		}
+		    	}
+
+		    	renderScene = {
+		    		this._navigatorRenderScene
+		    	}
+
+		    	configureScene = {(route, routeStack) => 
+		    		//Navigator.SceneConfigs.FloatFromBottom
+		    		Navigator.SceneConfigs.FadeAndroid
+		    	}
+		    />
   		);
+	}
+
+	_navigatorRenderScene(route, navigator) {
+
+		switch (route.id) {
+			case 'FirstScene':
+				return (
+					<FirstScene navigator={navigator}/>
+				)
+			case 'SecondScene':
+				return (
+					<SecondScene navigator={navigator}/>
+				)
+		}
 	}
 }
