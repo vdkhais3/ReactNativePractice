@@ -9,12 +9,53 @@ import {
 	TouchableWithoutFeedback,
 	DatePickerAndroid,
 	Slider,
+	Picker,
 	StyleSheet
 } from 'react-native';
 
 var dateFormat = require('dateformat');
 //var ListPopover = require('react-native-list-popover');
 var ActionBar = require('./ActionBar');
+
+var PickerItem = Picker.Item;
+var CAR_MAKES_AND_MODELS = {
+	amc: {
+		name: 'AMC',
+		models: ['AMX', 'Concord', 'Eagle', 'Gremlin', 'Matador', 'Pacer'],
+	},
+ 	alfa: {
+		 name: 'Alfa-Romeo',
+		 models: ['159', '4C', 'Alfasud', 'Brera', 'GTV6', 'Giulia', 'MiTo', 'Spider'],
+ 	},
+ 	aston: {
+		name: 'Aston Martin',
+		models: ['DB5', 'DB9', 'DBS', 'Rapide', 'Vanquish', 'Vantage'],
+	},
+	audi: {
+		name: 'Audi',
+		models: ['90', '4000', '5000', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'Q5', 'Q7'],
+	},
+	austin: {
+		name: 'Austin',
+		models: ['America', 'Maestro', 'Maxi', 'Mini', 'Montego', 'Princess'],
+	},
+	borgward: {
+		name: 'Borgward',
+		models: ['Hansa', 'Isabella', 'P100'],
+	},
+	buick: {
+		name: 'Buick',
+		models: ['Electra', 'LaCrosse', 'LeSabre', 'Park Avenue', 'Regal', 'Roadmaster', 'Skylark'],
+	},
+	cadillac: {
+		name: 'Cadillac',
+		models: ['Catera', 'Cimarron', 'Eldorado', 'Fleetwood', 'Sedan de Ville'],
+	},
+	chevrolet: {
+		name: 'Chevrolet',
+		models: ['Astro', 'Aveo', 'Bel Air', 'Captiva', 'Cavalier', 'Chevelle', 'Corvair', 'Corvette', 'Cruze', 'Nova', 'SS', 'Vega', 'Volt'],
+	},
+};
 
 class FirstScene extends Component {
 
@@ -23,7 +64,7 @@ class FirstScene extends Component {
 
 		this.state = {
 			sliderValue1: 1,
-			sliderValue2: 5,
+			sliderValue2: 1,
 			presetDate: new Date(2020, 4, 5),
 			allDate: new Date(2020, 4, 5),
 			simpleText: 'pick a date',
@@ -31,6 +72,8 @@ class FirstScene extends Component {
 			//maxText: 'pick a date, no later than today',
 			//presetText: 'pick a date, preset to 2020/5/5',
 			//allText: 'pick a date between 2020/5/1 and 2020/5/10',
+			carMake: 'cadillac',
+			modelIndex: 3
 		};
 	}
 
@@ -65,6 +108,9 @@ class FirstScene extends Component {
 	 };
 
 	render() {
+		var make = CAR_MAKES_AND_MODELS[this.state.carMake];
+		var selectionString = make.name + ' ' + make.models[this.state.modelIndex];
+
 		return (
 			<View>
 				<ActionBar
@@ -113,6 +159,30 @@ class FirstScene extends Component {
 							<Text style={styles.text}>{this.state.simpleText}</Text>
 						</View>
 					</TouchableWithoutFeedback>
+				</View>
+
+				<View
+					style={{
+						margin: 20,
+						borderWidth: 1,
+						borderColor: 'lightgray',
+						backgroundColor: 'white',
+						borderRadius: 10
+					}}>
+					<Picker
+						mode='dropdown'
+						selectedValue={this.state.carMake}
+						onValueChange={(carMake) => this.setState({carMake, modelIndex: 0})}>
+						{
+							Object.keys(CAR_MAKES_AND_MODELS).map((carMake) => (
+								<PickerItem
+									key={carMake}
+									value={carMake}
+									label={CAR_MAKES_AND_MODELS[carMake].name}
+									/>
+							))
+						}
+					</Picker>
 				</View>
 			</View>
 		)
